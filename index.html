@@ -3,106 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Quản lý Điều hành - Cổng Công ty</title>
+    <title>Cổng Thông tin Quản lý Chấm Công - Nhiệt điện Nghi Sơn</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f6fb; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
-        .header { background: #1a56a0; color: white; text-align: center; padding: 40px 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .header h1 { font-size: 28px; margin-bottom: 10px; font-weight: 700; }
-        .header p { font-size: 15px; opacity: 0.9; }
-       .header-logo {
-            max-width: 280px; /* Tăng kích thước ở đây (thử 250px, 280px hoặc 300px) */
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 12px; /* Bo tròn các góc của khối nền trắng */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* Tạo bóng đổ 3D cho logo nổi lên */
-        }
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; flex: 1; width: 100%; }
-        
-        .section-title { font-size: 18px; font-weight: 700; color: #475569; margin-bottom: 20px; border-bottom: 2px solid #cbd5e1; padding-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 40px; }
-        
-        .card { background: white; border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; display: flex; align-items: center; gap: 20px; border: 1px solid #e2e8f0; transition: all 0.3s ease; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); border-color: #93c5fd; }
-        
-        .icon-box { width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-        .card-info h3 { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
-        .card-info p { font-size: 13px; color: #64748b; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f4fa; color: #1e293b; display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* Phân loại màu sắc */
+        /* ── HEADER ── */
+        .header { background: linear-gradient(135deg, #1a3a6b 0%, #1a56a0 60%, #2563eb 100%); color: white; text-align: center; padding: 44px 20px 36px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); }
+        .header-logo { max-width: 260px; height: auto; margin-bottom: 22px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.35); }
+        .header h1 { font-size: 26px; font-weight: 800; letter-spacing: .5px; margin-bottom: 6px; }
+        .header h2 { font-size: 18px; font-weight: 600; opacity: .92; margin-bottom: 10px; }
+        .header p  { font-size: 14px; opacity: .8; }
+
+        /* ── BODY ── */
+        .container { max-width: 1040px; margin: 0 auto; padding: 40px 20px; flex: 1; width: 100%; }
+
+        .section-title {
+            font-size: 15px; font-weight: 700; color: #334155;
+            margin: 36px 0 16px;
+            border-bottom: 2px solid #cbd5e1; padding-bottom: 10px;
+            display: flex; align-items: center; gap: 8px;
+            text-transform: uppercase; letter-spacing: .6px;
+        }
+        .section-title:first-child { margin-top: 0; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 18px; margin-bottom: 8px; }
+
+        /* ── CARD ── */
+        .card {
+            background: white; border-radius: 14px; padding: 20px 22px;
+            text-decoration: none; color: inherit;
+            display: flex; align-items: center; gap: 18px;
+            border: 1.5px solid #e2e8f0;
+            transition: all .25s ease;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+            position: relative; overflow: hidden;
+        }
+        .card::after {
+            content: '→';
+            position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+            font-size: 18px; color: #cbd5e1;
+            transition: color .2s, right .2s;
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(26,86,160,0.13); border-color: #93c5fd; }
+        .card:hover::after { color: #2563eb; right: 14px; }
+
+        .icon-box {
+            width: 54px; height: 54px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; flex-shrink: 0;
+            transition: background .25s, color .25s;
+        }
         .card:hover .icon-box { background: #1a56a0 !important; color: white !important; }
-        .footer { text-align: center; padding: 20px; color: #94a3b8; font-size: 13px; background: white; border-top: 1px solid #e2e8f0; }
+
+        .card-info h3 { font-size: 15px; font-weight: 700; color: #0f172a; margin-bottom: 3px; padding-right: 24px; }
+        .card-info p  { font-size: 12px; color: #64748b; }
+
+        /* Badge "Chưa triển khai" */
+        .badge-pending {
+            display: inline-block; font-size: 10px; font-weight: 600;
+            background: #fef3c7; color: #92400e; border-radius: 6px;
+            padding: 2px 7px; margin-top: 4px; letter-spacing: .3px;
+        }
+
+        /* ── FOOTER ── */
+        .footer { text-align: center; padding: 18px; color: #94a3b8; font-size: 13px; background: white; border-top: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
 
-  <div class="header">
-        <img src="logocongty.png" class="header-logo">
-        
-        <h1>CỔNG THÔNG TIN QUẢN LÝ CA TRỰC</h1>
-        <h2 style="font-size: 20px; margin-bottom: 10px; font-weight: 600;">CÔNG TY NHIỆT ĐIỆN NGHI SƠN</h2>
-        <p>Vui lòng chọn đơn vị của bạn để truy cập hệ thống</p>
+<div class="header">
+    <img src="logocongty.png" class="header-logo" alt="Logo Công ty">
+    <h1>CỔNG THÔNG TIN QUẢN LÝ CHẤM CÔNG</h1>
+    <h2>CÔNG TY NHIỆT ĐIỆN NGHI SƠN</h2>
+    <p>Vui lòng chọn đơn vị của bạn để truy cập hệ thống</p>
+</div>
+
+<div class="container">
+
+    <!-- KHỐI PHÂN XƯỞNG -->
+    <div class="section-title">🏭 Khối Phân xưởng Sản xuất</div>
+    <div class="grid">
+
+        <a href="https://doicanhienlieu.pages.dev" class="card">
+            <div class="icon-box" style="background:#fff7ed;color:#ea580c;">🏗️</div>
+            <div class="card-info">
+                <h3>Phân xưởng Nhiên liệu</h3>
+                <p>Hệ thống quản lý đổi ca trực</p>
+            </div>
+        </a>
+
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#eff6ff;color:#2563eb;">⚡</div>
+            <div class="card-info">
+                <h3>Phân xưởng Vận hành</h3>
+                <p>Hệ thống quản lý đổi ca trực</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
+
+        <a href="https://doicasuachua.pages.dev" class="card">
+            <div class="icon-box" style="background:#f0fdf4;color:#16a34a;">⚙️</div>
+            <div class="card-info">
+                <h3>Phân xưởng Sửa chữa</h3>
+                <p>Hệ thống quản lý đổi ca trực</p>
+            </div>
+        </a>
+
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#fdf4ff;color:#c026d3;">🧪</div>
+            <div class="card-info">
+                <h3>Phân xưởng Hóa</h3>
+                <p>Hệ thống quản lý đổi ca trực</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
+
     </div>
 
-    <div class="container">
-        <div class="section-title">🏭 KHỐI PHÂN XƯỞNG SẢN XUẤT</div>
-        <div class="grid">
-            <a href="https://doicanhienlieu.pages.dev" class="card">
-                <div class="icon-box" style="background: #fff7ed; color: #ea580c;">🏗️</div>
-                <div class="card-info">
-                    <h3>Phân xưởng Nhiên liệu</h3>
-                    <p>Hệ thống quản lý đổi ca trực</p>
-                </div>
-            </a>
+    <!-- KHỐI PHÒNG BAN -->
+    <div class="section-title">🏢 Khối Phòng ban Quản lý</div>
+    <div class="grid">
 
-            <a href="chèn link web vào đây" class="card">
-                <div class="icon-box" style="background: #eff6ff; color: #2563eb;">⚡</div>
-                <div class="card-info">
-                    <h3>Phân xưởng Vận hành</h3>
-                    <p>Hệ thống quản lý đổi ca trực</p>
-                </div>
-            </a>
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#fef9c3;color:#ca8a04;">👥</div>
+            <div class="card-info">
+                <h3>Phòng Hành chính - Lao động</h3>
+                <p>Hệ thống quản lý nội bộ</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
 
-            <a href="chèn link web vào đây" class="card">
-                <div class="icon-box" style="background: #fdf4ff; color: #c026d3;">🧪</div>
-                <div class="card-info">
-                    <h3>Phân xưởng Hóa</h3>
-                    <p>Hệ thống quản lý đổi ca trực</p>
-                </div>
-            </a>
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#f8fafc;color:#475569;">📦</div>
+            <div class="card-info">
+                <h3>Phòng Kế hoạch - Vật tư</h3>
+                <p>Hệ thống quản lý nội bộ</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
 
-            <a href="https://doicasuachua.pages.dev" class="card">
-                <div class="icon-box" style="background: #f0fdf4; color: #16a34a;">⚙️</div>
-                <div class="card-info">
-                    <h3>Phân xưởng Sửa chữa</h3>
-                    <p>Hệ thống quản lý đổi ca trực</p>
-                </div>
-            </a>
-        </div>
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#f0fdf4;color:#15803d;">💰</div>
+            <div class="card-info">
+                <h3>Phòng Tài chính - Kế toán</h3>
+                <p>Hệ thống quản lý nội bộ</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
 
-        <div class="section-title">🏢 KHỐI PHÒNG BAN QUẢN LÝ</div>
-        <div class="grid">
-            <a href="LINK_GITHUB_PHONG_KTAT_CUA_BAN" class="card">
-                <div class="icon-box" style="background: #fef2f2; color: #dc2626;">🛡️</div>
-                <div class="card-info">
-                    <h3>Phòng Kỹ thuật An toàn</h3>
-                    <p>Giám sát và phê duyệt</p>
-                </div>
-            </a>
+        <a href="chèn-link-vào-đây" class="card">
+            <div class="icon-box" style="background:#fef2f2;color:#dc2626;">🛡️</div>
+            <div class="card-info">
+                <h3>Phòng Kỹ thuật - An toàn</h3>
+                <p>Hệ thống quản lý nội bộ</p>
+                <span class="badge-pending">Chưa triển khai</span>
+            </div>
+        </a>
 
-            <a href="LINK_GITHUB_PHONG_KHVT_CUA_BAN" class="card">
-                <div class="icon-box" style="background: #f8fafc; color: #475569;">📦</div>
-                <div class="card-info">
-                    <h3>Phòng Kế hoạch Vật tư</h3>
-                    <p>Quản lý hành chính</p>
-                </div>
-            </a>
-        </div>
     </div>
+</div>
 
-    <div class="footer">
-        © 2026 EVNGENCO1 - Nghi Sơn 1 | Hệ thống tự động hóa nội bộ
-    </div>
+<div class="footer">
+    © 2026 EVNGENCO1 – Nhà máy Nhiệt điện Nghi Sơn 1 &nbsp;|&nbsp; Hệ thống tự động hóa nội bộ
+</div>
 
 </body>
 </html>
